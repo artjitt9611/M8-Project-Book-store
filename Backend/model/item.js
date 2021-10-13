@@ -16,6 +16,10 @@ const book = new Schema({
 
 const Book = mongoose.model("books", book);
 
-
+const saveBook = async () => {
+	if (0 == (await Book.find())) await Book.insertMany(Books);
+	
+};
+saveBook();
 
 module.exports = Book;

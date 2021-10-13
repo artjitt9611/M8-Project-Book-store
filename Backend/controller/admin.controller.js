@@ -1,6 +1,6 @@
-
+const Book = require("../model/item")
 module.exports = {
-	addBook: async (req, res, next) => {
+	getBook: async (req, res, next) => {
 		try {
 			
 		} catch (error) {

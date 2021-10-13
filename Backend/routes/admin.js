@@ -1,8 +1,6 @@
 const router = require("express").Router()
-const {addBook} = require("../controller/admin.controller");
+const {getBook} = require("../controller/admin.controller");
 
-router.get('/add',(req, res) => {
- res.send("path /admin/add")
-})
+router.get('/getBook',getBook)
 
 module.exports = router
