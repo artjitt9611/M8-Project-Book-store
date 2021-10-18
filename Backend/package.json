@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/artjitt9611/M8-mock#readme",
   "dependencies": {
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^6.0.10"
   },

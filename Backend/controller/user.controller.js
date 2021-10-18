@@ -57,7 +57,6 @@ module.exports = {
 
 	GetCart: async (req, res, next) => {
 		try {
-			console.log('hello')
             res.status(200).json(await Cart.find());
 		} catch (error) {
 	
@@ -66,6 +65,22 @@ module.exports = {
 
 	DeleteProduct: async (req, res, next) => {
 		try {
+			let total = 0;
+			Book_id = req.body.Book_id;
+			let cart = await Cart.findOne({ Book_id })
+			let find =  cart.products.filter(p =>(p._id === Book_id))
+			if(find.length !== 0){
+				cart.products.pull({_id:Book_id})
+				for (let i = 0; i < cart.products.length; i++) { 
+					total = total + cart.products[i].subtotal
+				  }
+				cart.total = total
+				 
+				cart = await cart.save()
+				res.status(200).json('success')
+			}else
+			
+			res.status(200).json('not found products')
 			
 		} catch (error) {
 	
