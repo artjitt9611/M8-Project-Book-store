@@ -1,27 +1,28 @@
-import FacebookLogin from 'react-facebook-login'
-import axios from 'axios'
+import {Switch, Route} from "react-router-dom";
+import "boxicons";
+import GlobalStyle from "./GlobalStyle";
+import Home from "./Page/Home";
+import Registration from "./Compoents/Registration";
+import NavBar from "./Compoents/Navbar";
+
 function App() {
 
-  const signUserIn = async response => {
-    console.log(response)
-    const  {name,email,accessToken,userID} = response 
-    const user  = {name,email,accessToken,userId:userID}
+	return (
+		<>
+			<GlobalStyle />
+			<Switch>
+			<Route path="/home">
+			   <NavBar />
+					<Home/>
+				</Route>
 		
-    const X = await axios({
-      method:'post',
-      url:'http://localhost:5000/auth/signin/facebook',
-      data:{user}
-    })
-    console.log("data = "+X.data)
-	}
-  return (
-    <FacebookLogin
-    appId="411525907158319"
-    fields="name,email"
-    scope="public_profile, email"
-    callback={signUserIn}
-   />
-  );
+			<Route path="/login">
+					<Registration/>
+				</Route>
+				</Switch>
+			
+		</>
+	);
 }
 
 export default App;
