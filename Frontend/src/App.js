@@ -4,20 +4,24 @@ import GlobalStyle from "./GlobalStyle";
 import Home from "./Page/Home";
 import Registration from "./Compoents/Registration";
 import NavBar from "./Compoents/Navbar";
-
+import Favorite from "./Compoents/Favorite"
 function App() {
 
 	return (
 		<>
 			<GlobalStyle />
 			<Switch>
-			<Route path="/home">
-			   <NavBar />
+			<Route path="/" exact>
+			   <NavBar/>
 					<Home/>
 				</Route>
-		
-			<Route path="/login">
-					<Registration/>
+				<Route path="/favorite">
+				<NavBar/>
+					<Favorite/>
+				</Route>
+				
+				<Route path="">
+					<Registration />
 				</Route>
 				</Switch>
 			
