@@ -17,6 +17,7 @@ router.post('/signin/facebook', async (req, res) => {
         url: `https://graph.facebook.com/me?access_token=${result.access_token}`
       })
       
+      
       console.log('access'+a.data.name)
       let data = {name:a.data.name,token:result.access_token}
       res.status(200).json(data)

@@ -29,6 +29,7 @@ function Login({ className }) {
       url:'http://localhost:5000/auth/signin/facebook',
       data:{user}
     })
+    
     localStorage.setItem(`token`, JSON.stringify(res.data.token));
     localStorage.setItem(`name`, JSON.stringify(res.data.name));
 		dispatch(setCustomer(res.data));
@@ -44,6 +45,7 @@ function Login({ className }) {
 			confirmButtonColor: "#005488",
 		});
 	}
+
   async function onSubmit(event) {}
 
   return (
@@ -75,13 +77,7 @@ function Login({ className }) {
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
-              <FacebookLogin
-                appId="411525907158319"
-                fields="name,email"
-                scope="public_profile, email"
-                callback={signUserInFacebook}
-              />
-
+              
               <div className="link">
                 <Link to="/register">ยังไม่มีบัญชีผู้ใช้ ?</Link>
               </div>
@@ -94,6 +90,13 @@ function Login({ className }) {
                   กลับหน้าหลัก
                 </button>
               </Link>
+              <FacebookLogin
+                appId="411525907158319"
+                fields="name,email"
+                scope="public_profile, email"
+                callback={signUserInFacebook}
+              />
+
             </form>
           </div>
         </div>
