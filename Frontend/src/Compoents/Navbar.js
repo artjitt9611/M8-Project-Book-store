@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from "prop-types";
-import {removeCustomer, setCustomer} from "../ActionAndStore/action";
+import {removeCustomer, setCustomer} from "../ActionAndStore/Customer/action";
 function Navbar_list({ className }) {
   const dispatch = useDispatch();
 	const customer = useSelector((state) => state.customers);
@@ -18,6 +18,7 @@ function Navbar_list({ className }) {
   function logOut() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("name");
+    localStorage.removeItem("id");
 		dispatch(removeCustomer());
 	}
 
@@ -29,7 +30,7 @@ function Navbar_list({ className }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/favorite">รายการที่ชื่นชอบ</Nav.Link>
+              <Nav.Link href="/cart">ตระกร้าสินค้า</Nav.Link>
             </Nav>
             <Nav>
 

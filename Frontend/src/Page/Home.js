@@ -1,41 +1,41 @@
 import axios from "axios";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ProductAll from "../Compoents/Product";
 function Home({ className }) {
-  const [cards, setCards] = useState([]);
-  const [query, setQuery] = useState('');
- 
+  const [Book, setBook] = useState("");
+  const [query, setQuery] = useState("");
+
   useEffect(() => {
     function get() {
-      axios.get("https://www.googleapis.com/books/v1/volumes?q=Thailand").then((res) => {
-        setCards(res.data.items)
+      axios.get("/admin/getBook").then((res) => {
+        setBook(res.data);
       });
     }
     get();
   }, []);
 
-  function useSearch(event) {
-		setQuery(event.target.value);
-		axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`).then((res) => {
-			setCards(res.data.items)
-		}).catch((err) =>{
-			console.log(err);
-		})
-	}
-
-
-
   return (
     <div className={className}>
       <div class="parent">
         <div class="div1">
+
+        <form className="form-inline">
+            <input
+              type="text"
+              className="search"
+              placeholder="Search by book's name"
+            />
+          </form>
+
+        </div>
+        <div class="div2">
         <div className="col-70">
             <div className="all">
-            {cards ? (
-            cards.map((data) => {
+            {Book ? (
+            Book.map((data) => {
               return <ProductAll key={data.id} data={data}/>;
               })
           ) : (
@@ -44,25 +44,8 @@ function Home({ className }) {
             </div>
           </div>
         </div>
-        <div class="div2">
-        
-        </div>
-        <div class="div3">
-        <form className="form-inline">
-            <input
-              type="text"
-              className="search"
-              placeholder="Search by book's name"
-              onChange={useSearch}
-              value={query}
-            />
-          </form>
-      
-        </div>
       </div>
-      <div>
-
-      </div>
+      <div></div>
     </div>
   );
 }
@@ -96,10 +79,9 @@ export default styled(Home)`
     }
   }
   .col-70 {
-   
     padding-top: 5rem;
     margin: 3rem 8rem 8rem 8rem;
-    
+
     h1 {
       font-size: 28px;
       font-weight: bold;
@@ -115,18 +97,18 @@ export default styled(Home)`
   .parent {
 display: grid;
 grid-template-columns: 1fr;
-grid-template-rows: repeat(2, 1fr) 3fr;
+grid-template-rows: 1fr 2fr;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
 }
 
-.div1 { grid-area: 2 / 1 / 4 / 2; }
-.div2 { grid-area: 2 / 1 / 3 / 2; }
-.div3 { grid-area: 2 / 1 / 2 / 2; }
+.div1 { grid-area: 1 / 1 / 2 / 2; }
+.div2 { grid-area: 1 / 1 / 3 / 2; }
   margin-bottom: 50px;
   width: 98%;
 
   form.form-inline {
+    padding-top:30px;
     text-align: center;
     margin-bottom: 2rem;
   }

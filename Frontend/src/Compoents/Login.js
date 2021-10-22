@@ -1,52 +1,56 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Link,useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import FacebookLogin from "react-facebook-login";
-import axios from 'axios'
+import GoogleLogin from "react-google-login";
+import axios from "axios";
 import Swal from "sweetalert2";
 
-import {setCustomer, getCustomer} from "../ActionAndStore/action";
+import { setCustomer, getCustomer } from "../ActionAndStore/Customer/action";
 
 function Login({ className }) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const history = useHistory();
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-		dispatch(getCustomer());
-	}, [dispatch]);
+    dispatch(getCustomer());
+  }, [dispatch]);
 
-  const signUserInFacebook = async response => {
-    const  {name,email,accessToken,userID} = response 
-    const user  = {name,email,accessToken,userId:userID}
-		
+  const signUserInFacebook = async (response) => {
+    console.log(response)
+    const { name, email, accessToken, userID } = response;
+    const user = { name, email, accessToken, userId: userID };
     const res = await axios({
-      method:'post',
-      url:'http://localhost:5000/auth/signin/facebook',
-      data:{user}
-    })
-    
+      method: "post",
+      url: "http://localhost:5000/auth/signin/facebook",
+      data: { user },
+    });
+  
     localStorage.setItem(`token`, JSON.stringify(res.data.token));
-    localStorage.setItem(`name`, JSON.stringify(res.data.name));
-		dispatch(setCustomer(res.data));
-		history.push("/");
-    
+    localStorage.setItem(`name`, JSON.stringify(res.data.user.name));
+    localStorage.setItem(`id`, JSON.stringify(res.data.user._id));
+    dispatch(setCustomer(res.data));
+    history.push("/");
+  };
+  
+  const responseGoogle = async (response) => {
+     axios({
+      method: "post",
+      url: "http://localhost:5000/auth/signin/google",
+      data: {tokenId:response.tokenId},
+    }).then((res) =>{
+      localStorage.setItem(`token`, JSON.stringify(res.data.token));
+      localStorage.setItem(`name`, JSON.stringify(res.data.user.name));
+      localStorage.setItem(`id`, JSON.stringify(res.data.user._id));
+      dispatch(setCustomer(res.data));
+      history.push("/");
+    })
 
-	}
+  };
 
-  function alertError(error) {
-		Swal.fire({
-			icon: "error",
-			text: "อีเมลล์ หรือ รหัสผ่านของท่าน ไม่ถูกต้อง",
-			confirmButtonColor: "#005488",
-		});
-	}
-
-  async function onSubmit(event) {}
 
   return (
     <div className={className}>
@@ -59,44 +63,20 @@ function Login({ className }) {
           <div className="box">
             <h1>เข้าสู่ระบบ</h1>
             <form id="create-form" className="form">
-              <div className="input-group">
-                <input
-                  name="name"
-                  type="text"
-                  id="name"
-                  placeholder="ชื่อผู้ใช้"
-                  onChange={(event) => setUsername(event.target.value)}
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  name="password"
-                  type="password"
-                  id="password"
-                  placeholder="รหัสผ่าน"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-              </div>
-              
-              <div className="link">
-                <Link to="/register">ยังไม่มีบัญชีผู้ใช้ ?</Link>
-              </div>
-              <button type="submit" className="Login" onClick={onSubmit}>
-                เข้าสู่ระบบ
-              </button>
-
-              <Link to="/">
-                <button type="submit" className="Back">
-                  กลับหน้าหลัก
-                </button>
-              </Link>
               <FacebookLogin
                 appId="411525907158319"
-                fields="name,email"
+                fields="name,email,picture"
                 scope="public_profile, email"
                 callback={signUserInFacebook}
               />
-
+              <GoogleLogin
+                clientId="292061599755-9ooqp99oqcankjdso51rqt1253s1fjbr.apps.googleusercontent.com"
+                buttonText="Login with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={"single_host_origin"}
+              />
+        
             </form>
           </div>
         </div>
@@ -133,27 +113,7 @@ export default styled(Login)`
     text-align: center;
     margin-top: 150px;
   }
-  form input {
-    padding: 0.3rem 0.7rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    outline: none;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    width: 70%;
-    font-family: "IBM Plex Sans Thai", sans-serif;
-  }
-  form .input-group {
-    margin-bottom: 1.5rem;
-    justify-content: center;
-  }
-  form .link {
-    margin-bottom: 1.5rem;
-    margin-left: 8rem;
-  }
-  a {
-    color: orange;
-  }
+  
   .Back {
     font-size: 1rem;
     line-height: 1.5;

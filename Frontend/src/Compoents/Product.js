@@ -4,19 +4,16 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 function ProductAll({ className, data }) {
-
-    let thumbnail = '';
-    if (data.volumeInfo.imageLinks) {
-    thumbnail = data.volumeInfo.imageLinks.thumbnail;
-}
   return (
     <div className={className}>
       <div className="box">
-        <img src={thumbnail} className="imgBookk" />
-          <h2>{data.volumeInfo.title}</h2>
-        <h3>{data.volumeInfo.publisher}</h3>
-        <button >
-          เพิ่มไปยังรายการที่ชื่นชอบ
+        <img src={data.imageUrl} alt={data.name} className="imgBookk" />
+        <Link to={`/User/BookDetail/${data._id}`}>
+          <h2>{data.name}</h2>{" "}
+        </Link>
+        <h3>{data.price} บาท </h3>
+        <button>
+          เพิ่มไปยังตระกร้า
         </button>
       </div>
     </div>

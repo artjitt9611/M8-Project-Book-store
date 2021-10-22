@@ -1,16 +1,13 @@
 const mongoose = require("../config/database");
 const Schema = mongoose.Schema
 
-const customer = new Schema({
-    firstname: String,
-    lastname: String,
-    username:{type: String , unique: true},
-    password: String,
-    phone: String,
-    email: String,
-    type: String
+const user = new Schema({
+    email: {type: String , unique: true},
+    name: String,
+    type: String,
+    type_account:String
 })
 
-const Customer = mongoose.model("customers", customer)
+const User = mongoose.model("users", user)
 
-module.exports = Customer
+module.exports = User

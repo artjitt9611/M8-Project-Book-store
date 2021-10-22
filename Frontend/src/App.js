@@ -5,6 +5,8 @@ import Home from "./Page/Home";
 import Registration from "./Compoents/Registration";
 import NavBar from "./Compoents/Navbar";
 import Favorite from "./Compoents/Favorite"
+import BookDetail from "./Compoents/BookDetail";
+import Cart from "./Compoents/Cart";
 function App() {
 
 	return (
@@ -15,9 +17,15 @@ function App() {
 			   <NavBar/>
 					<Home/>
 				</Route>
-				<Route path="/favorite">
+
+				<Route path="/cart">
 				<NavBar/>
-					<Favorite/>
+					<Cart/>
+				</Route>
+
+				<Route path="/User/BookDetail/:id">
+				<NavBar/>
+					<BookDetail/>
 				</Route>
 				
 				<Route path="">

@@ -3,12 +3,20 @@ const axios = require('axios')
 module.exports = {
 	getBook: async (req, res, next) => {
 		try {
-			
-			const i = await axios.get('https://www.googleapis.com/books/v1/volumes?q=Thailand')
-			res.status(200).json(i.data);
+			res.status(200).json(await Book.find());
 		} catch (error) {
 	
 		}
 	},
+	ShowDetails: async (req, res, next) => {
+		try{
+			const { id } = req.params
+			res.status(200).json(await Book.findById(id).catch((err) =>{
+				if (err) res.status(400).json("Bad Request");
+			}));
+		}catch (error) {
+
+		}
+	}
 
 };

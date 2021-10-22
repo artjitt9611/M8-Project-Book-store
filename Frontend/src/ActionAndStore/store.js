@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import customersReducers from "./reducer"
-
+import customersReducers from "./Customer/reducer"
+import cartReducers from "./Cart/reducer"
 export default configureStore({
     reducer: {
-        customers: customersReducers
+        customers: customersReducers,
+        cart:cartReducers,
       }
 });

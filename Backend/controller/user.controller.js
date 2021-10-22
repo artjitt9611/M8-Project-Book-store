@@ -10,6 +10,7 @@ module.exports = {
             let total = 0;
             let cart = await Cart.findOne({ Customer_id })
 			let book = await Book.findById(Book_id)
+			console.log(book)
 			let _id = book._id
 			let name = book.name
 			let price = book.price
@@ -58,6 +59,16 @@ module.exports = {
 	GetCart: async (req, res, next) => {
 		try {
             res.status(200).json(await Cart.find());
+		} catch (error) {
+	
+		}
+	},
+	GetCartById: async (req, res, next) => {
+		try {
+			Customer_id = req.body.Customer_id;
+			let data = await Cart.findOne({ Customer_id })
+			console.log(data)
+            res.status(200).json(data);
 		} catch (error) {
 	
 		}
