@@ -20,7 +20,6 @@ function Login({ className }) {
   }, [dispatch]);
 
   const signUserInFacebook = async (response) => {
-    console.log(response)
     const { name, email, accessToken, userID } = response;
     const user = { name, email, accessToken, userId: userID };
     const res = await axios({
@@ -68,6 +67,8 @@ function Login({ className }) {
                 fields="name,email,picture"
                 scope="public_profile, email"
                 callback={signUserInFacebook}
+                cssClass="btnFacebook"
+                icon="fa-facebook"
               />
               <GoogleLogin
                 clientId="292061599755-9ooqp99oqcankjdso51rqt1253s1fjbr.apps.googleusercontent.com"
@@ -75,6 +76,7 @@ function Login({ className }) {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
+                className="btnGoogle"
               />
         
             </form>
@@ -92,6 +94,28 @@ Login.propTypes = {
 };
 
 export default styled(Login)`
+.btnFacebook { 
+  width: 192px;
+  height:47px;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+}
+.btnGoogle { 
+  width: 192px;
+  height: 64;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  display: inline-block;
+}
   .parent {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -111,33 +135,9 @@ export default styled(Login)`
   }
   .box {
     text-align: center;
-    margin-top: 150px;
+    margin-top: 200px;
   }
   
-  .Back {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-right: 1.5rem;
-    padding: 0.5rem 1.7rem;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #f8414c;
-    border-radius: 0.25rem;
-    border: none;
-    font-family: "IBM Plex Sans Thai", sans-serif;
-  }
-  .Login {
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-right: 1.5rem;
-    padding: 0.5rem 1.7rem;
-    cursor: pointer;
-    color: #ffffff;
-    background-color: #5e5e5e;
-    border-radius: 0.25rem;
-    border: none;
-    font-family: "IBM Plex Sans Thai", sans-serif;
-  }
   .div1 img {
     width: 120%;
     height: auto;

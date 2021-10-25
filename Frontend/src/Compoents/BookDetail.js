@@ -5,13 +5,14 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-
+import React from "react";
 
 function BookDetail({ className }) {
+	const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
+    const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
 	const [Book, setBook] = useState();
 	const { id } = useParams();
     const [quantity, setQuantity] = useState(1);
- 
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -19,12 +20,35 @@ function BookDetail({ className }) {
 		const getBookDetail = () => {
 			axios.get(`/admin/show_detail/${id}`).then((res) => {
 				setBook(res.data);
-                console.log(Book)
 			})
 		};
 		getBookDetail();
 	}, [id]);
+	
+	function onSubmit(e, data_detail) {
+		let config = {
+		  headers: {
+			'Authorization': 'Bearer ' + token
+		  }
+		}
+		e.preventDefault();
+		if (user) {
+		  
+		  let data = {
+			Customer_id: user,
+			Book_id: data_detail,
+			quantity: parseInt(quantity),
+		  };
+		  console.log(data)
+		  axios.post("/user/addToCart",data,config).then((res) => {
+		  history.push("/cart");
+		  })
 
+		
+		} else {
+		  history.push("/login");
+		}
+	  }
 	
 	return (
 		<div className={className}>
@@ -51,12 +75,12 @@ function BookDetail({ className }) {
 								type="number"
 								className="quantity"
 								min="1"
-								max="100"
+								max="20"
 								onChange={(event) => setQuantity(event.target.value)}
 								value={quantity}
 							/>
 							<Link to="/">
-								<button className="btn">
+								<button className="btn"  onClick={(e) => onSubmit(e, Book._id)}>
 									เพิ่มสินค้าลงตะกร้า
 								</button>
 							</Link>

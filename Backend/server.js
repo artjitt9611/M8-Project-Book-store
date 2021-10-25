@@ -1,4 +1,4 @@
-
+require("./middlewares/passport");
 const app = require("./config/express");
 
 const listener = app.listen(5000, () => {

@@ -1,15 +1,46 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect} from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { fetchCart} from "../ActionAndStore/Cart/action";
 
 
 function Cart({ className, data }) {
-
+  const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
+  const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
   const dispatch = useDispatch();
+
+  function DeleteItem(e, data_detail) {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    let data = {
+      Customer_id: user,
+      Book_id: data_detail,
+    };
+    Swal.fire({
+      title: "โปรดยืนยัน",
+      text: "ต้องการที่ละลบรายการนี้ออกจากตะกร้าหรือไม่",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่",
+      cancelButtonText: "ไม่",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post("/user/DeleteProduct",data,config).then((res) => { 
+          dispatch(fetchCart(res.data));
+        }).catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  }
 
   return (
     <tr className={className}>
@@ -25,6 +56,7 @@ function Cart({ className, data }) {
           name="trash"
           type="solid"
           color="#f04e4e"
+          onClick={(e) => DeleteItem(e, data._id)}
         />
       </td>
     </tr>

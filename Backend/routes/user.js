@@ -4,6 +4,6 @@ const {AddToCart,GetCart,DeleteProduct,GetCartById} = require("../controller/use
 router.post('/addToCart',AddToCart)
 router.get('/GetCart',GetCart)
 router.post('/GetCartById',GetCartById)
-router.delete('/DeleteProduct',DeleteProduct)
+router.post('/DeleteProduct',DeleteProduct)
 
 module.exports = router

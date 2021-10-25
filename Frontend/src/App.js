@@ -7,6 +7,7 @@ import NavBar from "./Compoents/Navbar";
 import Favorite from "./Compoents/Favorite"
 import BookDetail from "./Compoents/BookDetail";
 import Cart from "./Compoents/Cart";
+import Payment from "./Compoents/Payment";
 function App() {
 
 	return (
@@ -23,9 +24,14 @@ function App() {
 					<Cart/>
 				</Route>
 
-				<Route path="/User/BookDetail/:id">
+				<Route path="/user/BookDetail/:id">
 				<NavBar/>
 					<BookDetail/>
+				</Route>
+				
+				<Route path="/payment">
+				<NavBar/>
+					<Payment/>
 				</Route>
 				
 				<Route path="">

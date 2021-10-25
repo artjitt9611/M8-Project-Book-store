@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { fetchCart} from "../ActionAndStore/Cart/action";
-import GetCart from "./EachIProductInCart";
-
+import GetCart2 from "./EachIProductInCart2";
+import CheckoutButton from "./ButtonCreaditCard"
 
 
 function ShowCart({ className }) {
@@ -16,6 +16,10 @@ function ShowCart({ className }) {
     const [user] = useState(JSON.parse(localStorage.getItem("id")));
 	const cart = useSelector((state) => state.cart);
 	const dispatch = useDispatch();
+
+    const [Name, setName] = useState("");
+    const [Address, setAddress] = useState("");
+    const [Phone, setPhone] = useState("");
 
 	
     useEffect(() => {
@@ -54,7 +58,7 @@ function ShowCart({ className }) {
 						<tbody>
 						{cart.products ? (
 								cart.products.map((data) => {
-									return <GetCart key={data.id} data={data}/>;
+									return <GetCart2 key={data.id} data={data}/>;
 								})
 							) : (
 								<tr>
@@ -67,23 +71,46 @@ function ShowCart({ className }) {
 				</div>
 				<div className="col-30">
 					<div className="box">
-						<h4>รวมทั้งหมด</h4>
-						<div className="price">
-							<h5>
-								ยอดเงินรวม <span>{cart.total} THB</span>
-							</h5>
-							<h5>
-								ค่าส่ง <span>free</span>
-							</h5>
-						</div>
-						<h5>
-							ยอดรวมสุทธิ <span>{cart.total} THB</span>
-						</h5>
-						<Link to="/payment">
-							<div className="btnsub">
-								<button className="btn btn-secondary">สั่งซื้อสินค้า</button>
+                    <p>ที่อยู่จัดส่งสินค้า</p>
+						<form id="create-form" className="form">
+							<div className="input-group">
+
+								<input
+									name="firstname"
+									type="text"
+									id="firstname"
+									placeholder="ชื่อ"
+                                    onChange={(event) => setName(event.target.value)}
+								
+								/>
 							</div>
-						</Link>
+							<div className="input-group">
+								<input
+									name="lastname"
+									type="text"
+									id="lastname"
+									placeholder="ที่อยู่"
+                                    onChange={(event) => setAddress(event.target.value)}
+									
+								/>
+							</div>
+							<div className="input-group">
+								<input
+									name="username"
+									type="text"
+									id="username"
+									placeholder="เบอร์โทรศัพท์"
+                                    onChange={(event) => setPhone(event.target.value)}
+									
+								/>
+							</div>
+
+                            <CheckoutButton name={Name} address={Address} phone={Phone} /> 
+						
+							
+
+						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -97,6 +124,21 @@ ShowCart.propTypes = {
 };
 
 export default styled(ShowCart)`
+
+form input {
+		padding: 0.3rem 0.7rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		outline: none;
+		border: 1px solid #ced4da;
+		border-radius: 0.25rem;
+		width: 120%;
+		font-family: "IBM Plex Sans Thai", sans-serif;
+	}
+	form .input-group {
+		margin-bottom: 1.5rem;
+		justify-content: center;
+	}
 	overflow: hidden;
 	margin-bottom: 50px;
 	.row {
@@ -135,16 +177,8 @@ export default styled(ShowCart)`
 					padding: 25px 10px 20px 10px;
 				}
 			}
-			.back {
-				bottom: 2%;
-				position: absolute;
-				span {
-					display: flex;
-					justify-content: space-evenly;
-					font-size: 1.1rem;
-				}
-			}
 		}
+
 		.col-30 {
 			width: 30%;
 			margin-top: 8rem;
@@ -153,29 +187,6 @@ export default styled(ShowCart)`
 				padding: 14px;
 				width: 400px;
 				border-radius: 5px;
-				h4 {
-					text-align: center;
-					font-weight: bold;
-				}
-				.price {
-					margin-top: 2rem;
-					display: flex;
-					justify-content: space-between;
-					flex-direction: column;
-					border-bottom: 1px solid #cecccc;
-					margin-bottom: 2rem;
-				}
-				h5 {
-					display: flex;
-					margin-bottom: 1.5rem;
-					justify-content: space-between;
-				}
-
-				.btnsub {
-					margin-top: 2rem;
-					display: flex;
-					justify-content: center;
-				}
 			}
 		}
 	}

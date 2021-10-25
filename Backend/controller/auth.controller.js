@@ -2,6 +2,7 @@ const Customer = require("../model/user");
 const User = require("../model/user")
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
+
 module.exports = {
 	register: async (req, res, next) => {
 		try {
@@ -102,7 +103,7 @@ module.exports = {
 			const result = response.data
 			const Auth = await axios({
 			  method: 'get',
-			  url: `https://graph.facebook.com/me?access_token=${result.access_token}`
+			  url: `https://graph.facebook.com/v2.11/${req.body.user.userId}/?fields=id,name,email&access_token=${result.access_token}`
 			})
 			if(Auth){
 				let find = await User.findOne({email})

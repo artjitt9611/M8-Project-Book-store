@@ -1,18 +1,55 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+
+import axios from "axios";
+import { useDispatch } from "react-redux";
 function ProductAll({ className, data }) {
+
+  const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
+  const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
+  const [quantity] = React.useState(1);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function onSubmit(e, data_detail) {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    e.preventDefault();
+    if (user) {
+      
+      let data = {
+        Customer_id: user,
+        Book_id: data_detail,
+        quantity: quantity,
+      };
+
+      axios.post("/user/addToCart",data,config).then((res) => {
+				history.push("/cart");
+			}).catch(() =>{
+				
+			})
+    } else {
+      history.push("/login");
+    }
+  }
+  
+  
+
   return (
     <div className={className}>
       <div className="box">
         <img src={data.imageUrl} alt={data.name} className="imgBookk" />
-        <Link to={`/User/BookDetail/${data._id}`}>
+        <Link to={`/user/BookDetail/${data._id}`}>
           <h2>{data.name}</h2>{" "}
         </Link>
         <h3>{data.price} บาท </h3>
-        <button>
+        <button onClick={(e) => onSubmit(e, data._id)}>
           เพิ่มไปยังตระกร้า
         </button>
       </div>
