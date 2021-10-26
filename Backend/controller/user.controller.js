@@ -1,6 +1,9 @@
 const Book = require("../model/item");
 const Cart = require("../model/cart");
 const passport = require("passport");
+
+
+
 module.exports = {
   AddToCart: async (req, res, next) => {
     try {
@@ -105,5 +108,13 @@ module.exports = {
         }
       })(req, res, next);
     } catch (error) {}
+  },
+
+  Checkout: async (req, res, next) => {
+    try {
+      
+    } catch (error) {
+
+    }
   },
 };

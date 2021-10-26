@@ -10,7 +10,7 @@ function ButtonCreditCard({ className, name, address, phone }) {
 
   let OmiseCard = window.OmiseCard;
   OmiseCard.configure({
-    publicKey: "pkey_test_5pknrrh5pogr16z1mq0",
+    publicKey: "pkey_test_5pmncburbof4u8lmcmy",
     currency: "thb",
     frameLabel: "Roxy Shop",
     submitLabel: "PAY NOW",
