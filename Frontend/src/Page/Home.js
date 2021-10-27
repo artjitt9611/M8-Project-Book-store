@@ -22,31 +22,28 @@ function Home({ className }) {
     <div className={className}>
       <div class="parent">
         <div class="div1">
-
-        <form className="form-inline">
+          <form className="form-inline">
             <input
               type="text"
               className="search"
               placeholder="Search by book's name"
             />
           </form>
-
         </div>
         <div class="div2">
-        <div className="col-70">
+          <div className="col-70">
             <div className="all">
-            {Book ? (
-            Book.map((data) => {
-              return <ProductAll key={data.id} data={data}/>;
-              })
-          ) : (
-            <div>พิมพ์ชื่อหนังสือที่ต้องการหา</div>
-          )}
+              {Book ? (
+                Book.map((data) => {
+                  return <ProductAll key={data._id} data={data} />;
+                })
+              ) : (
+                <div>พิมพ์ชื่อหนังสือที่ต้องการหา</div>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div></div>
     </div>
   );
 }
@@ -96,20 +93,24 @@ export default styled(Home)`
     }
   }
   .parent {
-display: grid;
-grid-template-columns: 1fr;
-grid-template-rows: 1fr 2fr;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-}
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
 
-.div1 { grid-area: 1 / 1 / 2 / 2; }
-.div2 { grid-area: 1 / 1 / 3 / 2; }
+  .div1 {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+  .div2 {
+    grid-area: 1 / 1 / 3 / 2;
+  }
   margin-bottom: 50px;
   width: 98%;
 
   form.form-inline {
-    padding-top:30px;
+    padding-top: 30px;
     text-align: center;
     margin-bottom: 2rem;
   }

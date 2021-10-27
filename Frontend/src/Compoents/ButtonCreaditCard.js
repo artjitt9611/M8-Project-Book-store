@@ -4,52 +4,72 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Script from "react-load-script";
-function ButtonCreditCard({ className, name, address, phone }) {
+import { useRef,useEffect} from "react";
+
+function ButtonCreditCard({className}) {
+  const dispatch = useDispatch();
+ 
   const cart = useSelector((state) => state.cart);
+  const address = useSelector((state) => state.address);
+  const name = useSelector((state) => state.name);
+  const phone = useSelector((state) => state.phone);
+  const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
+  const history = useHistory();
 
-  let OmiseCard = window.OmiseCard;
-  OmiseCard.configure({
-    publicKey: "pkey_test_5pmncburbof4u8lmcmy",
-    currency: "thb",
-    frameLabel: "Roxy Shop",
-    submitLabel: "PAY NOW",
-    buttonLabel: "Pay with Omise",
-  });
-
-  function creditCardConfigure() {
-    OmiseCard.configure({
-      defaultPaymentMethod: "credit_card",
-      otherPaymentMethod: [],
-    });
-    OmiseCard.configureButton("#credit_card")
-    OmiseCard.attach();
-
-  }
-  function omiseCardHandler() {
-    OmiseCard.open({
-      amount: 10000,
-      frameDescription:'Invoice #3847',
-      onCreateTokenSuccess: (token) => {
-        console.log(token)
-        /* Handler on token or source creation.  Use this to submit form or send ajax request to server */
-      },
-      onFormClosed: () => {
-        /* Handler on form closure. */
-      },
+  function createCreditCardCharge(cart,address,name,phone) {
+    
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+    console.log(address,name,phone)
+  let track = {name:name,address:address,phone:phone}
+  let data = {order: cart,address:track}
+  console.log(data)
+   
+  
+		axios.post("http://localhost:5000/user/Checkout",data,config).then((res) =>{
+      history.push("/");
     })
-  }
+    
+	  
+	} 
+ 
 
-  function onSubmit(e) {
-    e.preventDefault();
-    creditCardConfigure();
-    omiseCardHandler();
-  }
+  const paypal = useRef()
+
+  useEffect(() => {
+   window.paypal.Buttons({
+     createOrder:(data,actions,err)=>{
+       return actions.order.create({
+         intent:"CAPTURE",
+         purchase_units:[
+           {
+             description:"Cool looking table",
+             amount:{
+               currency_code:"THB",
+               value:cart.total
+             },
+           },
+         ],
+       })
+     },
+     onApprove:async(data,actions)=>{
+       const order = await actions.order.capture();
+       console.log(order)
+       createCreditCardCharge(cart,address,name,phone)
+     },
+     onError:(err)=>{
+       console.log(err)
+     }
+
+   }).render(paypal.current);
+  }, []);
 
   return (
     <div className={className}>
-      <div className="btn">
-        <button id="credit_card" onClick={(e) => onSubmit(e)}>CheckOut</button>
+      <div ref={paypal}>  
       </div>
     </div>
   );

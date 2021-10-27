@@ -28,7 +28,9 @@
     "mongoose": "^6.0.10",
     "omise": "^0.8.5",
     "passport": "^0.5.0",
-    "passport-jwt": "^4.0.0"
+    "passport-jwt": "^4.0.0",
+    "stripe": "^8.184.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.13"

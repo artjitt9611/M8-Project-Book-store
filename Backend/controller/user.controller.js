@@ -1,6 +1,12 @@
 const Book = require("../model/item");
 const Cart = require("../model/cart");
+const Receipt = require("../model/receipt")
 const passport = require("passport");
+
+var omise = require('omise')({
+  'publicKey': process.env.OMISE_PUBLIC_KEY,
+  'secretKey':process.env.OMISE_SECRET_KEY,
+})
 
 
 
@@ -112,7 +118,25 @@ module.exports = {
 
   Checkout: async (req, res, next) => {
     try {
-      
+      passport.authenticate("jwt", async (err, user, info) => {
+        if (err) return next(err);
+        if (user) {
+          let Customer_id = req.body.order._id
+          let Order = req.body.order
+          let Address = req.body.address
+          let bill = new Receipt({ Order: Order, Address: Address });
+          bill.save({new:true}).then(async () => {
+            let cart = await Cart.findOneAndDelete({_id:Customer_id});
+            res.status(200).json('success')
+          }).catch(() => res.status(404).json("error"));
+        }else{
+        res.status(400).json('Not found customer please login.');
+        }
+      })(req, res, next);
+       
+       
+        
+        
     } catch (error) {
 
     }

@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 
 import { setCustomer, getCustomer } from "../ActionAndStore/Customer/action";
 
+
 function Login({ className }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function Login({ className }) {
       localStorage.setItem(`name`, JSON.stringify(res.data.user.name));
       localStorage.setItem(`id`, JSON.stringify(res.data.user._id));
       dispatch(setCustomer(res.data));
+    
       history.push("/");
     })
 
