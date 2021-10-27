@@ -2,16 +2,12 @@ import React from "react";
 import { Link , useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
-
 import axios from "axios";
-import { useDispatch } from "react-redux";
 function ProductAll({ className, data }) {
 
   const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
   const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
   const [quantity] = React.useState(1);
-  const dispatch = useDispatch();
   const history = useHistory();
 
   function onSubmit(e, data_detail) {

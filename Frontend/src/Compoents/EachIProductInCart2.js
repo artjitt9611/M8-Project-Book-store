@@ -1,17 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
-import Swal from "sweetalert2";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { fetchCart} from "../ActionAndStore/Cart/action";
-
-
 function Cart({ className, data }) {
-  const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
-  const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
-  const dispatch = useDispatch();
-
   return (
     <tr className={className}>
       <td>

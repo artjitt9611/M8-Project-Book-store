@@ -4,37 +4,50 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ProductAll from "../Compoents/Product";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBooks } from "../ActionAndStore/Book/actions";
 
 function Home({ className }) {
-  const [Book, setBook] = useState("");
+  const book = useSelector((state) => state.book);
   const [query, setQuery] = useState("");
-
+  const dispatch = useDispatch();
   useEffect(() => {
     function get() {
       axios.get("/admin/getBook").then((res) => {
-        setBook(res.data);
+        dispatch(fetchBooks(res.data));
       });
     }
     get();
-  }, []);
+  }, [dispatch]);
+
+  function useSearch(event) {
+		setQuery(event.target.value);
+		axios.get(`/admin/search/${query}`).then((res) => {
+      dispatch(fetchBooks(res.data));
+		}).catch((err) =>{
+			console.log(err);
+		})
+	}
 
   return (
     <div className={className}>
       <div class="parent">
         <div class="div1">
-          <form className="form-inline">
-            <input
-              type="text"
-              className="search"
-              placeholder="Search by book's name"
-            />
-          </form>
         </div>
         <div class="div2">
+        <form className="form-inline">
+				<input
+					type="text"
+					className="search"
+					placeholder="Search by book's name"
+					onChange={useSearch}
+					value={query}
+				/>
+			</form>
           <div className="col-70">
             <div className="all">
-              {Book ? (
-                Book.map((data) => {
+              {book ? (
+                book.map((data) => {
                   return <ProductAll key={data._id} data={data} />;
                 })
               ) : (
@@ -77,7 +90,7 @@ export default styled(Home)`
     }
   }
   .col-70 {
-    padding-top: 5rem;
+    padding-top: 4rem;
     margin: 3rem 8rem 8rem 8rem;
 
     h1 {

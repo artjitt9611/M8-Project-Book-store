@@ -4,10 +4,10 @@ import GlobalStyle from "./GlobalStyle";
 import Home from "./Page/Home";
 import Registration from "./Compoents/Registration";
 import NavBar from "./Compoents/Navbar";
-import Favorite from "./Compoents/Favorite"
 import BookDetail from "./Compoents/BookDetail";
 import Cart from "./Compoents/Cart";
 import Payment from "./Compoents/Payment";
+import PaymentDetail from "./Compoents/paymentsuccess";
 function App() {
 
 	return (
@@ -32,6 +32,11 @@ function App() {
 				<Route path="/payment">
 				<NavBar/>
 					<Payment/>
+				</Route>
+
+				<Route path="/paymentdetail">
+				<NavBar/>
+					<PaymentDetail/>
 				</Route>
 				
 				<Route path="">

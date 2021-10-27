@@ -2,9 +2,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import Swal from "sweetalert2";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
 import React from "react";
 
 function BookDetail({ className }) {
@@ -13,7 +11,6 @@ function BookDetail({ className }) {
 	const [Book, setBook] = useState();
 	const { id } = useParams();
     const [quantity, setQuantity] = useState(1);
-	const dispatch = useDispatch();
 	const history = useHistory();
 
 	useEffect(() => {

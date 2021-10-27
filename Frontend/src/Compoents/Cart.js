@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import Swal from "sweetalert2";
 import { fetchCart } from "../ActionAndStore/Cart/action";
 import GetCart from "./EachIProductInCart";
 import { setAddress} from "../ActionAndStore/Address/action";

@@ -1,13 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
-import Swal from "sweetalert2";
+
 
 import { setCustomer, getCustomer } from "../ActionAndStore/Customer/action";
 

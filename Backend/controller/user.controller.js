@@ -127,7 +127,7 @@ module.exports = {
           let bill = new Receipt({ Order: Order, Address: Address });
           bill.save({new:true}).then(async () => {
             let cart = await Cart.findOneAndDelete({_id:Customer_id});
-            res.status(200).json('success')
+            res.status(200).json(cart)
           }).catch(() => res.status(404).json("error"));
         }else{
         res.status(400).json('Not found customer please login.');

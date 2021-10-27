@@ -1,7 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import "boxicons";
-import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";

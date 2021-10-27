@@ -17,6 +17,12 @@ module.exports = {
 		}catch (error) {
 
 		}
-	}
+	},
+	search: async (req, res,next) => {
+        const { keyword } = req.params
+         let data = await Book.find()
+         let find = data.filter(p =>(p.name.includes(keyword)))
+         res.status(200).json(find);
+    },
 
 };
