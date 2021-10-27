@@ -4,8 +4,5 @@ Choose API
 2.googlelogin
 3.Omise
 # Getting start the project
-1.cd frontend and npm install
-2.cd Backend and npm install
-1. James Madison
-2. James Monroe
-3. John Quincy Adams
+1. cd frontend and npm install
+2. cd Backend and npm install
