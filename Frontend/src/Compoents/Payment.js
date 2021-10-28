@@ -39,7 +39,7 @@ function ShowCart({ className }) {
     <div className={className}>
       <div className="row">
         <div className="col-70">
-          <h1> ตะกร้าสินค้า </h1>
+          <h1> สรุปรายการสินค้า </h1>
           <table className="ShowBook">
             <thead>
               <tr>

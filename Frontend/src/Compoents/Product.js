@@ -12,6 +12,7 @@ function ProductAll({ className, data }) {
   const [quantity] = React.useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
+  console.log(token)
   function onSubmit(e, data_detail) {
     let config = {
       headers: {

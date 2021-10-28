@@ -1,19 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory ,Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
-
-
+import {useState} from "react";
+import Swal from "sweetalert2";
 import { setCustomer, getCustomer } from "../ActionAndStore/Customer/action";
 
 
 function Login({ className }) {
   const history = useHistory();
   const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
 
   React.useEffect(() => {
     dispatch(getCustomer());
@@ -51,6 +54,32 @@ function Login({ className }) {
 
   };
 
+  function onSubmit(event) {
+		event.preventDefault();
+		const data = {
+			email: email,
+			password: password,
+		};
+		axios
+			.post("http://localhost:5000/auth/login", data)
+			.then((res) => {
+        localStorage.setItem(`token`, JSON.stringify(res.data.token));
+        localStorage.setItem(`name`, JSON.stringify(res.data.user.name));
+        localStorage.setItem(`id`, JSON.stringify(res.data.user._id));
+        history.push("/");
+			})
+			.catch((error) => {
+				alertError(error);
+			});
+	}
+
+  function alertError(error) {
+		Swal.fire({
+			icon: "error",
+			text: "อีเมลล์ หรือ รหัสผ่านของท่าน ไม่ถูกต้อง",
+			confirmButtonColor: "#005488",
+		});
+	}
 
   return (
     <div className={className}>
@@ -62,8 +91,33 @@ function Login({ className }) {
         <div className="div2">
           <div className="box">
             <h1>เข้าสู่ระบบ</h1>
+            
             <form id="create-form" className="form">
-              <FacebookLogin
+            <div className="input-group">
+								<input
+									name="email"
+									type="text"
+									id="email"
+									placeholder="email"
+									onChange={(event) => setEmail(event.target.value)}
+								/>
+							</div>
+							<div className="input-group">
+								<input
+									name="name"
+									type="password"
+									id="name"
+									placeholder="password"
+                  onChange={(event) => setPassword(event.target.value)}
+									
+								/>
+							</div>
+              <button type="submit" className="Login" onClick={onSubmit}>
+								เข้าสู่ระบบ
+							</button>
+              <p>________________________________________</p>
+            </form>
+            <FacebookLogin
                 appId="411525907158319"
                 fields="name,email,picture"
                 scope="public_profile, email"
@@ -79,8 +133,9 @@ function Login({ className }) {
                 cookiePolicy={"single_host_origin"}
                 className="btnGoogle"
               />
-        
-            </form>
+               <div className="link">
+								<Link to="/register">ยังไม่มีบัญชีผู้ใช้ ?</Link>
+							</div>
           </div>
         </div>
       </div>
@@ -93,6 +148,37 @@ Login.propTypes = {
 };
 
 export default styled(Login)`
+.Login {
+  width: 192px;
+  height:47px;  
+  border-radius: 4px;
+  border:0px transparent;  
+  text-align: center;
+  margin:5px;
+  cursor: pointer;
+	color: #ffffff;
+	background-color: #5e5e5e;
+  display: inline-block;
+	font-family: "IBM Plex Sans Thai", sans-serif;
+	}
+form .link {
+		margin-bottom: 1.5rem;
+		margin-left: 8rem;
+	}
+form input {
+		padding: 0.3rem 0.7rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		outline: none;
+		border: 1px solid #ced4da;
+		border-radius: 0.25rem;
+		width: 70%;
+		font-family: "IBM Plex Sans Thai", sans-serif;
+	}
+	form .input-group {
+		margin-bottom: 1.5rem;
+		justify-content: center;
+	}
 .btnFacebook { 
   width: 192px;
   height:47px;  
@@ -134,7 +220,7 @@ export default styled(Login)`
   }
   .box {
     text-align: center;
-    margin-top: 200px;
+    margin-top: 150px;
   }
   
   .div1 img {

@@ -1,5 +1,6 @@
 const Customer = require("../model/user");
 const User = require("../model/user")
+const UserLocal = require("../model/userlocal")
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
 
@@ -79,8 +80,65 @@ module.exports = {
 			res.status(500).json(error)
 		  }
 	},
+	register: async (req, res,next) => {
+		try{
+			let {name, password,email} = req.body;
+			if (email == "" ||name == "" ||password == "") {
+				res.status(400).json({
+					status: "FAILED",
+					message: "Empty inputs fields",
+				});
+			} else if (password.length < 8) {
+				res.status(400).json({
+					status: "FAILED",
+					message: "Password is short",
+				});
+			} 
+			else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+				res.status(400).json({
+					status: "FAILED",
+					message: "Invalid email entered",
+				});
+			} else {
+				let user = new UserLocal({ ...req.body, type: "customer", type_account:"local" });
+				await user.save(async (err, data) => {
+					if (err){
+						res.status(400).json("Username that other User has already exist");
+					}else{
+						res.status(200).json(data);
+					}
+				});
+			}
 
+		}catch(err){
+			res.status(500).json(error)
+		}
+
+	},
+	login: async (req, res,next) => {
+		try{
+			const { email, password } = req.body;
+			const data = await UserLocal.findOne({
+				email,
+				password,
+			});
+			if (data) {
+				const {_id,name,email} = data
+				const token = jwt.sign({_id:data._id}, 'id_key_account', {expiresIn: '1d' })
+				res.status(200).json({token,user:{_id,name,email}});
+			} else {
+				let message = { message: "Email or Password incorrect" };
+				res.status(400).end(JSON.stringify(message));
+			}
+		}catch(err){
+
+		}
+		
+		
+	},
 };
+
+
 
 
 
