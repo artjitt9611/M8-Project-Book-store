@@ -29,7 +29,9 @@ function Navbar_list({ className }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/cart">ตระกร้าสินค้า</Nav.Link>
+              <Nav.Link href="/cart">
+                <box-icon name="shopping-bag" color="#fff">
+                </box-icon></Nav.Link>
             </Nav>
             <Nav>
 
@@ -64,4 +66,5 @@ export default styled(Navbar_list)`
       padding: 10px 15px;
     }
   }
+
 `;

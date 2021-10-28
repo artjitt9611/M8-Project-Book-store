@@ -5,11 +5,12 @@ import Swal from "sweetalert2";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { fetchCart} from "../ActionAndStore/Cart/action";
-
+import { useState} from "react";
 
 function Cart({ className, data }) {
   const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
   const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
+  const [quantity, SetQuantity] = useState(data.quantity);
   const dispatch = useDispatch();
 
   function DeleteItem(e, data_detail) {
@@ -41,6 +42,28 @@ function Cart({ className, data }) {
       }
     });
   }
+  function ChangeQuantity(id, quantity) {
+    let config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+		const data = {
+      Customer_id:user,
+      Book_id:id,
+			quantity: parseInt(quantity),
+		};
+		SetQuantity(quantity);
+    axios.put("/user/ChangeQuantity",data,config).then((res)=> {
+      dispatch(fetchCart(res.data))   
+    })
+    
+
+    
+		
+	}
+  
+
 
   return (
     <tr className={className}>
@@ -49,7 +72,16 @@ function Cart({ className, data }) {
       </td>
       <td>{data.name}</td>
       <td>{data.price}</td>
-      <td>{data.quantity}</td>
+      <td>
+      <input
+					type="number"
+					className="quantity"
+					min="1"
+					max="10"
+					value={quantity}
+          onChange={(event) => ChangeQuantity(data._id, event.target.value)}
+				/>
+      </td>
       <td>{data.subtotal}</td>
       <td>
         <box-icon

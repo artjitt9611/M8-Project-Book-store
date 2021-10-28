@@ -3,13 +3,15 @@ import { Link , useHistory } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchCart} from "../ActionAndStore/Cart/action";
 function ProductAll({ className, data }) {
 
   const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
   const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
   const [quantity] = React.useState(1);
   const history = useHistory();
-
+  const dispatch = useDispatch();
   function onSubmit(e, data_detail) {
     let config = {
       headers: {
@@ -26,6 +28,7 @@ function ProductAll({ className, data }) {
       };
 
       axios.post("/user/addToCart",data,config).then((res) => {
+        dispatch(fetchCart(res.data))   
 				history.push("/cart");
 			}).catch(() =>{
 				

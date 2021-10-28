@@ -90,8 +90,6 @@ function Login({ className }) {
 
 Login.propTypes = {
   className: PropTypes.string,
-  username: PropTypes.string,
-  password: PropTypes.string,
 };
 
 export default styled(Login)`

@@ -7,7 +7,6 @@ passport.use(passport.initialize());
 passport.use(passport.session());
 
 passport.use(new JWTStrategy({jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),secretOrKey: 'id_key_account'},(payload, done) => {
-	console.log('using local jwt...')
     if (payload) {
 				done(null, payload);
 			} else done(null, false, {message: "Not found user."});

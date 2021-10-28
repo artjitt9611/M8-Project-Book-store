@@ -82,7 +82,8 @@ function ShowCart({ className }) {
                   type="text"
                   id="firstname"
                   placeholder="ชื่อ"
-                  onChange={(event) => dispatch(setName(event.target.value))}
+                  onChange={(event) => dispatch(setName(event.target.value))
+                  }
                 />
               </div>
               <div className="input-group">

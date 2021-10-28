@@ -22,12 +22,10 @@ function ButtonCreditCard({ className }) {
     };
     let track = { name: name, address: address, phone: phone };
     let data = { order: cart, address: track };
-    console.log(data);
-
     axios
       .post("http://localhost:5000/user/Checkout", data, config)
       .then((res) => {
-        dispatch(setReceipt());
+        dispatch(setReceipt(res.data));
         history.push("/paymentdetail");
       });
   }
@@ -53,11 +51,9 @@ function ButtonCreditCard({ className }) {
         },
         onApprove: async (data, actions) => {
           const order = await actions.order.capture();
-          console.log(order);
           createCreditCardCharge(cart, address, name, phone);
         },
         onError: (err) => {
-          console.log(err);
         },
       })
       .render(paypal.current);

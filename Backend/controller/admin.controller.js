@@ -5,7 +5,7 @@ module.exports = {
 		try {
 			res.status(200).json(await Book.find());
 		} catch (error) {
-	
+			res.status(500).json(error)
 		}
 	},
 	ShowDetails: async (req, res, next) => {
@@ -15,14 +15,19 @@ module.exports = {
 				if (err) res.status(400).json("Bad Request");
 			}));
 		}catch (error) {
-
+			res.status(500).json(error)
 		}
 	},
 	search: async (req, res,next) => {
-        const { keyword } = req.params
-         let data = await Book.find()
-         let find = data.filter(p =>(p.name.includes(keyword)))
-         res.status(200).json(find);
+		try{
+			const { keyword } = req.params
+			let data = await Book.find()
+			let find = data.filter(p =>(p.name.includes(keyword)))
+			res.status(200).json(find);
+		}catch(error){
+			res.status(500).json(error)
+		}
+        
     },
 
 };
