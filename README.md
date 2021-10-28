@@ -15,6 +15,6 @@ Choose API
 3. in frontend npm start
 4. in Backend npm start
 # API authentication mechanisms before starting playing around with the application
-Use authentication mechanisms is JWT because JWT is use easy and easy understand to develop in my project and JWT is be safe 
+Use authentication mechanisms is JWT because JWT is use easy and easy understand to develop in my project and JWT is be safe , JWTs are a good way of securely transmitting information between parties because they can be signed 
 # You have to explain why his or her application is useful, who will be the potential users?
 For people who like to read books It must be important, so my application has come to meet people who like to read books and want to collect books that it is not e-book or find books that they want to read....
