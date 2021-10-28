@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useState} from "react";
 import { Link, Redirect } from "react-router-dom";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector} from "react-redux";
 import GetCart2 from "./EachIProductInCart2";
 function ShowCart({ className }) {
   const [user] = useState(JSON.parse(localStorage.getItem("id")));

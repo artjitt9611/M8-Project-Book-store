@@ -3,6 +3,8 @@ const User = require("../model/user")
 const UserLocal = require("../model/userlocal")
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
+const fs = require('fs')
+const privateKey = fs.readFileSync(__dirname+'/../config/private.key')
 
 module.exports = {
 	Google:async (req, res, next) => {
@@ -16,7 +18,7 @@ module.exports = {
 			if(email_verified){
 			  let find = await User.findOne({email})
 			  if(find){
-				const token = jwt.sign({_id:find._id}, 'id_key_account', {expiresIn: '1d' })
+				const token = jwt.sign({_id:find._id}, privateKey , {expiresIn: '1d' })
 				const {_id,name,email} = find;
 				res.status(200).json({token,user:{_id,name,email}})
 			  }else{
@@ -25,7 +27,7 @@ module.exports = {
 				  if (err){
 					return res.status(400).json({error:"Something went worng..."})
 				  }
-				  const token = jwt.sign({_id:data._id}, 'id_key_account', {expiresIn: '1d' })
+				  const token = jwt.sign({_id:data._id}, privateKey , {expiresIn: '1d' })
 				  const {_id,name,email} = users;
 				  res.status(200).json({token,user:{_id,name,email}})
 				});
@@ -57,7 +59,7 @@ module.exports = {
 			if(Auth){
 				let find = await User.findOne({email})
                 if(find){
-					const token = jwt.sign({_id:find._id}, 'id_key_account', {expiresIn: '1d' })
+					const token = jwt.sign({_id:find._id}, privateKey , {expiresIn: '1d' })
 					const {_id,name,email} = find;
 					res.status(200).json({token,user:{_id,name,email}})
 				}else{
@@ -124,7 +126,7 @@ module.exports = {
 			});
 			if (data) {
 				const {_id,name,email} = data
-				const token = jwt.sign({_id:data._id}, 'id_key_account', {expiresIn: '1d' })
+				const token = jwt.sign({_id:data._id}, privateKey , {expiresIn: '1d' })
 				res.status(200).json({token,user:{_id,name,email}});
 			} else {
 				let message = { message: "Email or Password incorrect" };
