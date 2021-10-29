@@ -10,7 +10,9 @@ Choose API
 2. Googlelogin
 3. Paypal
 # Getting start the project
+```
 $ cd Backend npm install npm start
+```
 # API authentication mechanisms before starting playing around with the application
 Use authentication mechanisms is JWT because JWT is use easy and easy understand to develop in my project and JWT is be safe , JWTs are a good way of securely transmitting information between parties because they can be signed 
 # API authentication mechanisms
