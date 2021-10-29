@@ -6,9 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { fetchCart } from "../ActionAndStore/Cart/action";
 import GetCart from "./EachIProductInCart";
-import { setAddress} from "../ActionAndStore/Address/action";
+import { setAddress } from "../ActionAndStore/Address/action";
 import { setName } from "../ActionAndStore/Name/action";
-import { setPhone } from "../ActionAndStore/Phone/action"
+import { setPhone } from "../ActionAndStore/Phone/action";
+import { Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function ShowCart({ className }) {
   const [user] = useState(JSON.parse(localStorage.getItem("id")));
   const cart = useSelector((state) => state.cart);
@@ -34,7 +37,7 @@ function ShowCart({ className }) {
   return (
     <div className={className}>
       <div className="row">
-        <div className="col-70">
+        <div className="box">
           <h1> ตะกร้าสินค้า </h1>
           <table className="ShowBook">
             <thead>
@@ -74,7 +77,7 @@ function ShowCart({ className }) {
             <h5>
               ยอดรวมสุทธิ <span>{cart.total} THB</span>
             </h5>
-			<p>ที่อยู่จัดส่งสินค้า</p>
+            <p>ที่อยู่จัดส่งสินค้า</p>
             <form id="create-form" className="form">
               <div className="input-group">
                 <input
@@ -82,8 +85,7 @@ function ShowCart({ className }) {
                   type="text"
                   id="firstname"
                   placeholder="ชื่อ"
-                  onChange={(event) => dispatch(setName(event.target.value))
-                  }
+                  onChange={(event) => dispatch(setName(event.target.value))}
                 />
               </div>
               <div className="input-group">
@@ -104,11 +106,11 @@ function ShowCart({ className }) {
                   onChange={(event) => dispatch(setPhone(event.target.value))}
                 />
               </div>
-			  <Link to="/payment">
-              <div className="btnsub">
-                <button className="btn btn-secondary">สั่งซื้อสินค้า</button>
-              </div>
-            </Link>
+              <Link to="/payment">
+                <div className="btnsub">
+                  <button className="btn btn-secondary">สั่งซื้อสินค้า</button>
+                </div>
+              </Link>
             </form>
           </div>
         </div>
@@ -123,7 +125,7 @@ ShowCart.propTypes = {
 };
 
 export default styled(ShowCart)`
-form input {
+  form input {
     padding: 0.3rem 0.7rem;
     font-size: 1rem;
     line-height: 1.5;
@@ -151,7 +153,7 @@ form input {
       text-align: left;
       margin-bottom: 2.5rem;
     }
-    .col-70 {
+    .box {
       width: 60%;
       margin-bottom: 4rem;
       .ShowBook {
@@ -217,6 +219,19 @@ form input {
           justify-content: center;
         }
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .row .box {
+      width: 100%;
+      margin-bottom: 4 rem;
+    }
+    .row .col-30 .box {
+      margin-left: 50%;
+    }
+     .row .col-30 {
+      width: 30%;
+      margin-top: 2rem;
     }
   }
 `;

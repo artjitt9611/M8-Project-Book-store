@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { fetchCart} from "../ActionAndStore/Cart/action";
+import { Col } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 function ProductAll({ className, data }) {
 
   const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
@@ -12,7 +14,6 @@ function ProductAll({ className, data }) {
   const [quantity] = React.useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(token)
   function onSubmit(e, data_detail) {
     let config = {
       headers: {
@@ -42,8 +43,10 @@ function ProductAll({ className, data }) {
   
 
   return (
-    <div className={className}>
-      <div className="box">
+ 
+       <Col md={5} lg={3}  >
+       <div className={className}>
+       <div className="box">
         <img src={data.imageUrl} alt={data.name} className="imgBookk" />
         <Link to={`/user/BookDetail/${data._id}`}>
           <h2>{data.name}</h2>{" "}
@@ -53,7 +56,10 @@ function ProductAll({ className, data }) {
           เพิ่มไปยังตระกร้า
         </button>
       </div>
-    </div>
+      </div>
+       </Col>
+      
+ 
   );
 }
 

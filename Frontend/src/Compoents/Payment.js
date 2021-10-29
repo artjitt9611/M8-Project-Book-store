@@ -13,6 +13,9 @@ import React from "react";
 function ShowCart({ className }) {
   const [user] = useState(JSON.parse(localStorage.getItem("id")));
   const cart = useSelector((state) => state.cart);
+  const name = useSelector((state) => state.name);
+  const address = useSelector((state) => state.address);
+  const phone = useSelector((state) => state.phone);
   const dispatch = useDispatch();
   
 
@@ -38,7 +41,7 @@ function ShowCart({ className }) {
   return (
     <div className={className}>
       <div className="row">
-        <div className="col-70">
+        <div className="box">
           <h1> สรุปรายการสินค้า </h1>
           <table className="ShowBook">
             <thead>
@@ -65,9 +68,16 @@ function ShowCart({ className }) {
           </table>
         </div>
         <div className="col-30">
-          <div className="box">
+          <div className="bos">
 			         <CheckoutButton/>
           </div>
+          <div className="bos">
+                <h5>รายละเอียดที่อยู่จัดส่ง</h5>
+                <h5>{name} ที่อยู่ {address} เบอร์โทรศัพท์ {phone}</h5>
+
+          </div>
+          
+          
         </div>
       </div>
     </div>
@@ -95,7 +105,7 @@ export default styled(ShowCart)`
       text-align: left;
       margin-bottom: 2.5rem;
     }
-    .col-70 {
+    .box {
       width: 60%;
       margin-bottom: 4rem;
       .ShowBook {
@@ -124,12 +134,38 @@ export default styled(ShowCart)`
     .col-30 {
       width: 30%;
       margin-top: 8rem;
-      .box {
+      .bos {
         border: 1px solid #cecccc;
         padding: 14px;
         width: 400px;
         border-radius: 5px;
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .row .box {
+      width: 100%;
+      margin-bottom: 4 rem;
+    }
+    .row .col-30 .box {
+      margin-left: 50%;
+    }
+     .row .col-30 {
+      width: 30%;
+      margin-top: 2rem;
+    }
+  }
+  @media screen and (max-width: 425px) {
+    .row .box {
+      width: 100%;
+      margin-bottom: 4 rem;
+    }
+    .row .col-30 .box {
+      margin-left: 50%;
+    }
+     .row .col-30 {
+      width: 30%;
+      margin-top: 2rem;
     }
   }
 `;

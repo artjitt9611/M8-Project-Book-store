@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import ProductAll from "../Compoents/Product";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBooks } from "../ActionAndStore/Book/actions";
+import { Container, Row } from "react-bootstrap";
 
 function Home({ className }) {
   const book = useSelector((state) => state.book);
@@ -35,7 +36,6 @@ function Home({ className }) {
   return (
     <div className={className}>
       <div class="parent">
-        <div class="div1"></div>
         <div class="div2">
           <form className="form-inline">
             <input
@@ -46,8 +46,9 @@ function Home({ className }) {
               value={query}
             />
           </form>
-          <div className="col-70">
-            <div className="all">
+          <Container>
+            <Row>
+           
               {book ? (
                 book.map((data) => {
                   return <ProductAll key={data._id} data={data} />;
@@ -55,8 +56,10 @@ function Home({ className }) {
               ) : (
                 <div>พิมพ์ชื่อหนังสือที่ต้องการหา</div>
               )}
-            </div>
-          </div>
+         
+            </Row>
+          </Container>
+        
         </div>
       </div>
     </div>
@@ -158,8 +161,9 @@ export default styled(Home)`
     input.search {
       width: 60%;
     }
-     div.box {
+    div.box {
       width: 22 rem;
     }
   }
+  
 `;

@@ -133,7 +133,7 @@ module.exports = {
 				res.status(400).end(JSON.stringify(message));
 			}
 		}catch(err){
-
+			res.status(500).json(error)
 		}
 		
 		

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { useState} from "react";
+import { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import React from "react";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import GetCart2 from "./EachIProductInCart2";
 function ShowCart({ className }) {
   const [user] = useState(JSON.parse(localStorage.getItem("id")));
   const receipt = useSelector((state) => state.receipt);
-  console.log(receipt)
+  console.log(receipt);
   if (!user) {
     return <Redirect to="/login" />;
   }
@@ -99,28 +99,46 @@ export default styled(ShowCart)`
     width: 10%;
   }
   .col-70 {
-      width: 100%;
-      margin-bottom: 4rem;
-      .ShowBook {
-        border: 1px solid #cecccc;
-        border-collapse: collapse;
-        width: 90%;
-        margin: 5rem;
-        table-layout: fixed;
-        thead tr th {
-          text-align: center;
-          font-size: 20px;
-          font-weight: bold;
-          padding: 20px;
-          border-bottom: 1px solid #cecccc;
-        }
-        td {
-          color: black;
-          font-size: 18px;
-          text-align: center;
-          border-bottom: 1px solid #e5e5e5;
-          padding: 25px 10px 20px 10px;
-        }
+    width: 100%;
+    margin-bottom: 4rem;
+    .ShowBook {
+      border: 1px solid #cecccc;
+      border-collapse: collapse;
+      width: 90%;
+      margin: 5rem;
+      table-layout: fixed;
+      thead tr th {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 20px;
+        border-bottom: 1px solid #cecccc;
+      }
+      td {
+        color: black;
+        font-size: 18px;
+        text-align: center;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 25px 10px 20px 10px;
       }
     }
+  }
+  @media screen and (max-width: 768px) {
+    .col-70 .ShowBook {
+      border: 1 px solid #cecccc;
+      border-collapse: collapse;
+      width: 77%;
+      margin: 5 rem;
+      table-layout: fixed;
+    }
+  }
+  @media screen and (max-width: 452px) {
+    .col-70 .ShowBook {
+      display: none;
+      width: 17%;
+    }
+     button {
+      width: 38%;
+    }
+  }
 `;
