@@ -21,29 +21,31 @@ function Home({ className }) {
   }, [dispatch]);
 
   function useSearch(event) {
-		setQuery(event.target.value);
-		axios.get(`/admin/search/${query}`).then((res) => {
-      dispatch(fetchBooks(res.data));
-		}).catch((err) =>{
-			console.log(err);
-		})
-	}
+    setQuery(event.target.value);
+    axios
+      .get(`/admin/search/${query}`)
+      .then((res) => {
+        dispatch(fetchBooks(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div className={className}>
       <div class="parent">
-        <div class="div1">
-        </div>
+        <div class="div1"></div>
         <div class="div2">
-        <form className="form-inline">
-				<input
-					type="text"
-					className="search"
-					placeholder="Search by book's name"
-					onChange={useSearch}
-					value={query}
-				/>
-			</form>
+          <form className="form-inline">
+            <input
+              type="text"
+              className="search"
+              placeholder="Search by book's name"
+              onChange={useSearch}
+              value={query}
+            />
+          </form>
           <div className="col-70">
             <div className="all">
               {book ? (
@@ -146,5 +148,18 @@ export default styled(Home)`
     font-size: 16px;
     width: 40%;
     justify-content: center;
+  }
+  @media screen and (max-width: 452px) {
+    .col-70 {
+      padding-top: 0rem;
+      padding-left: 0rem;
+      margin: 0rem 0rem 0rem 0rem;
+    }
+    input.search {
+      width: 60%;
+    }
+     div.box {
+      width: 22 rem;
+    }
   }
 `;

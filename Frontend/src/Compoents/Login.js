@@ -227,4 +227,24 @@ form input {
     width: 120%;
     height: auto;
   }
+
+  @media screen and (max-width:452px) {
+    .parent {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 500px;
+    border: 0px solid red;
+  }
+  .div1 {
+    display: none;
+    overflow: hidden;
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .box {
+    text-align: center;
+    margin-top: 100px;
+}
+  }
 `;
