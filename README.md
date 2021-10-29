@@ -1,7 +1,3 @@
-## Table of contents
-* [Intro Project M8](#Intro Project M8)
-* [Technologies](#technologies)
-* [Setup](#setup)
 ## Intro Project M8
 The project use React and Nodejs for development Database use mongodb Project name RoxyBookstore ecommerce
 ## You must have in your device
@@ -14,12 +10,16 @@ The project use React and Nodejs for development Database use mongodb Project na
 2. Googlelogin
 3. Paypal
 ## Getting start the project
-1. Backend
+1. Clone the repo
+```
+git clone 
+```
+2. Backend
 ```
 $ cd Backend npm install 
 $ npm start
 ```
-2. Frontend
+3. Frontend
 ```
 $ cd frontend npm install 
 $ npm start
