@@ -52,23 +52,23 @@ module.exports = {
 			  &client_secret=78f757065b20692a8bc46a94312cc44b&fb_exchange_token=${req.body.user.accessToken}`
 			})
 			const result = response.data
-			const Auth = await axios({
+			const Authenticate = await axios({
 			  method: 'get',
 			  url: `https://graph.facebook.com/v2.11/${req.body.user.userId}/?fields=id,name,email&access_token=${result.access_token}`
 			})
-			if(Auth){
+			if(Authenticate){
 				let find = await User.findOne({email})
                 if(find){
 					const token = jwt.sign({_id:find._id}, privateKey , {expiresIn: '1d' })
 					const {_id,name,email} = find;
 					res.status(200).json({token,user:{_id,name,email}})
 				}else{
-					let users = new User({name:Auth.data.name,email,type: "customer",type_account:"Facebook"})
+					let users = new User({name:Authenticate.data.name,email,type: "customer",type_account:"Facebook"})
 					await users.save(async (err, information) => {
 						if (err){
-						  return res.status(400).json({error:"Something went worng..."})
+						  return res.status(400).json({error:"error"})
 						}
-						const token = jwt.sign({_id:information._id}, 'id_key_account', {expiresIn: '1d' })
+						const token = jwt.sign({_id:information._id}, privateKey, {expiresIn: '1d' })
 						const {_id,name,email} = users;
 						res.status(200).json({token,user:{_id,name,email}})
 					  });

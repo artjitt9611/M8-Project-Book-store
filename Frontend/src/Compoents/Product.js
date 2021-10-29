@@ -11,6 +11,7 @@ function ProductAll({ className, data }) {
 
   const [user] = React.useState(JSON.parse(localStorage.getItem("id")));
   const [token] = React.useState(JSON.parse(localStorage.getItem("token")));
+  
   const [quantity] = React.useState(1);
   const history = useHistory();
   const dispatch = useDispatch();
