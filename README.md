@@ -1,10 +1,29 @@
 ## Intro Project M8
+
 The project use React and Nodejs for development Database use mongodb Project name RoxyBookstore ecommerce
+## About the project
+![github-large](https://scontent.xx.fbcdn.net/v/t1.15752-9/s417x417/248078559_412334356969813_6477790939161672008_n.png?_nc_cat=107&ccb=1-5&_nc_sid=aee45a&_nc_eui2=AeGbNu6r1ATwyj56Du6uZm2w32pe6jLaltffal7qMtqW19p7U7qDMzbpBsudDVWh96H3A9mFdlgZBEf4Dfl8kDsr&_nc_ohc=B-3cu2W9IPAAX8kiWUX&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=bae66323bfbe42dfbcf2eeccf5dd279f&oe=619F47F7)
+* The project that I do is a web application. Bookstore is a web application that allows buyers to browse for books or buy books through online channels or our website helps buyers to get our products and receive convenient services.
+
+## Feature
+* Reigster
+* Loign via facebook google and local
+* Add products to cart
+* Update products in cart
+* Delete products in cart
+* Payment by Paypal 
+
+
+
+## Built With
+* React
+* Nodejs
+* Mongodb
+
 ## You must have in your device
 1. vscode or text editor
 2. mongodb 
 3. nodejs
-
 ## Choose API 
 1. Facebooklogin	
 2. Googlelogin
@@ -12,7 +31,7 @@ The project use React and Nodejs for development Database use mongodb Project na
 ## Getting start the project
 1. Clone the repo
 ```
-git clone 
+git clone https://github.com/artjitt9611/M8-Project-Book-store.git
 ```
 2. Backend
 ```
