@@ -12,6 +12,7 @@ The project use React and Nodejs for development Database use mongodb Project na
 * Update products in cart
 * Delete products in cart
 * Payment by Paypal 
+* Search
 
 
 
