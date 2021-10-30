@@ -69,14 +69,18 @@ module.exports = {
   GetCart: async (req, res, next) => {
     try {
       res.status(200).json(await Cart.find());
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json(error);
+    }
   },
   GetCartById: async (req, res, next) => {
     try {
       Customer_id = req.body.Customer_id;
       let data = await Cart.findOne({ Customer_id });
       res.status(200).json(data);
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json(error);
+    }
   },
 
   DeleteProduct: async (req, res, next) => {
@@ -105,7 +109,9 @@ module.exports = {
 			res.status(404).json("Not found customer please login.");
         }
       })(req, res, next);
-    } catch (error) {}
+    } catch (error) {
+      res.status(500).json(error);
+    }
   },
 
   Checkout: async (req, res, next) => {

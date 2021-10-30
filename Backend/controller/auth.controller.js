@@ -57,10 +57,10 @@ module.exports = {
 			  url: `https://graph.facebook.com/v2.11/${req.body.user.userId}/?fields=id,name,email&access_token=${result.access_token}`
 			})
 			if(Authenticate){
-				let find = await User.findOne({email})
-                if(find){
-					const token = jwt.sign({_id:find._id}, privateKey , {expiresIn: '1d' })
-					const {_id,name,email} = find;
+				let Get = await User.findOne({email})
+                if(Get){
+					const token = jwt.sign({_id:Get._id}, privateKey , {expiresIn: '1d' })
+					const {_id,name,email} = Get;
 					res.status(200).json({token,user:{_id,name,email}})
 				}else{
 					let users = new User({name:Authenticate.data.name,email,type: "customer",type_account:"Facebook"})
