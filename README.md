@@ -44,6 +44,11 @@ $ npm start
 $ cd frontend npm install 
 $ npm start
 ```
+## Test Payment System
+use this test account
+ID : sb-ug43ya8312837@personal.example.com
+Pass : A25122512
+
 ## API authentication mechanisms before starting playing around with the application
 Use authentication mechanisms is JWT because JWT is use easy and easy understand to develop in my project and JWT is be safe , JWTs are a good way of securely transmitting information between parties because they can be signed 
 ## API authentication mechanisms
